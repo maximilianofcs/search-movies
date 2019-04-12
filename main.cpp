@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     {
         std::string param = argv[count];
         // Exibir help?
-        if( param == std::string("--help") or (argc<=1) )
+        if( (param == std::string("--help")) || (param == std::string("-h")) || (argc<=1) )
         {
             std::cout << "use:" << std::endl;
             std::cout << "-h ou --help" << std::endl;
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
             return 0;
         }
         // Exibir tipo?
-        else if( param == std::string("--type") )
+        else if( (param == std::string("--type")) || (param == std::string("-t"))  )
         {
             hasType = true;
             count++;
@@ -42,12 +42,12 @@ int main(int argc, char *argv[])
                 typeStr = argv[count];
         }
         // Fazer a pesquisa?
-        else if( param == std::string("--search") )
+        else if( (param == std::string("--search")) || (param == std::string("-s")) )
         {
             while(++count < argc)
             {
                 // caso tipo seja solicitado reavalia os parametros
-                if( std::string(argv[count]) == std::string("--type") )
+                if( (std::string(argv[count]) == std::string("--type")) || (std::string(argv[count]) == std::string("-t")) )
                 {
                     count--;
                     break;
