@@ -2,6 +2,7 @@
 #define REQUESTRESONSE_H
 
 #include <QObject>
+#include <QString>
 #include <QCoreApplication>
 #include <QNetworkAccessManager>
 #include <QUrl>
@@ -13,8 +14,9 @@ class RequestResponse
 {
 public:
     RequestResponse();
-    std::string getUrl(std::string url);
 
+public:
+    QString getUrl(std::string url);
 };
 
 #endif // REQUESTRESONSE_H

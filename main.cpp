@@ -1,11 +1,8 @@
 #include <iostream>
-
-#include "RequestResponse.h"
 #include <string>
 
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QVariantMap>
+#include "RequestResponse.h"
+#include "ParseJasonResult.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +13,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication app(argc, argv);
 
+    // Parse dos parametros usados
     for(int count=0; count<argc; count++)
     {
         std::string param = argv[count];
@@ -82,24 +80,20 @@ int main(int argc, char *argv[])
 
     url.append("&plot=full");
 
-    RequestResponse request;
+    // Prepara para o HTTP GET
+    RequestResponse request;    
 
-    // Pega o resultado
-    std::string result = request.getUrl(url);
+    // Pega o resultado do GET na URL
+    QString result = request.getUrl(url);
 
-    // Exibe o resultado em json
-    std::cout << "Resultado:" << std::endl;
+    // Faz o parse do Jason resultante
+    ParseJasonResult parse;
+    QString output = parse.parseAndFormat(result);
 
-    // Parse json result
-    QJsonDocument doc = QJsonDocument::fromJson(QString(result.c_str()).toUtf8());
-    QJsonObject jObject = doc.object();
-    QVariantMap mainMap = jObject.toVariantMap();
+    std::cout << output.toStdString() << std::endl;
 
-    // Para cada item no json mostre o nome e valor
-    for(QVariantMap::iterator it = mainMap.begin(); it != mainMap.end(); it++)
-    {
-        std::cout << it.key().toStdString().c_str()
-                  << " - " << it.value().toString().toStdString().c_str()
-                  << std::endl;
-    }
+    // Terminamos
+    return 0;
 }
+
+
