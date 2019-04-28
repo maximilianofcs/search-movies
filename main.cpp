@@ -3,14 +3,20 @@
 
 #include "RequestResponse.h"
 #include "ParseJasonResult.h"
+#include "OmdbApi.h"
 
 int main(int argc, char *argv[])
 {
+    // Usado para exibir a consulta
     std::string searchStr;
-    std::string searchTitleStr;
+    // Usado para fazer a consulta
+    QString searchTitleStr;
+    // Indica se filtramos por type
     bool hasType = false;
-    std::string typeStr;
+    // Tipo filtrado
+    QString typeStr;
 
+    // Usado para o loop de mensagens
     QCoreApplication app(argc, argv);
 
     // Parse dos parametros usados
@@ -51,11 +57,13 @@ int main(int argc, char *argv[])
                     break;
                 }
 
+                // Para exibir com espacos
                 if(searchStr.size()==0)
                     searchStr.append(argv[count]);
                 else
                     searchStr.append(" ").append(argv[count]);
 
+                // Para usar em OMDBAPI com +
                 if(searchTitleStr.size()==0)
                     searchTitleStr.append(argv[count]);
                 else
@@ -66,30 +74,21 @@ int main(int argc, char *argv[])
         }
     }
 
-    // Faz o request do search no omdbapi
-    std::string url = "http://www.omdbapi.com/?apikey=3ef02985";
-    url.append("&t=");
-    url.append(searchTitleStr);
+    // String de resultado da pesquisa
+    QString result;
 
-    // Tipo foi solicitado?
+    // Acesso o OMDB API para fazer o search e/ou type
+    OmdbApi omdbapi;
     if(hasType)
-    {
-        url.append("&type=");
-        url.append(typeStr);
-    }
-
-    url.append("&plot=full");
-
-    // Prepara para o HTTP GET
-    RequestResponse request;    
-
-    // Pega o resultado do GET na URL
-    QString result = request.getUrl(url);
+        result = omdbapi.run(searchTitleStr, typeStr);
+    else
+        result = omdbapi.run(searchTitleStr, "");
 
     // Faz o parse do Jason resultante
     ParseJasonResult parse;
     QString output = parse.parseAndFormat(result);
 
+    // Exibe o resultado
     std::cout << output.toStdString() << std::endl;
 
     // Terminamos

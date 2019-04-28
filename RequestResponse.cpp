@@ -8,12 +8,12 @@ RequestResponse::RequestResponse()
 //
 // Faz o HTTP Get na URL fornecida, retorna o response em uma string
 //
-QString RequestResponse::getUrl(std::string url)
+QString RequestResponse::getUrl(QString url)
 {
     QString result;
 
     QNetworkAccessManager NAManager;
-    QUrl qurl (url.c_str());
+    QUrl qurl(url);
     QNetworkRequest request(qurl);
     QNetworkReply *reply = NAManager.get(request);
     QEventLoop eventLoop;
@@ -24,3 +24,8 @@ QString RequestResponse::getUrl(std::string url)
 
     return result;
 }
+
+
+
+
+

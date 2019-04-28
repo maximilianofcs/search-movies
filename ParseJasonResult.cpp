@@ -6,7 +6,6 @@
 
 ParseJasonResult::ParseJasonResult()
 {
-
 }
 
 
@@ -15,9 +14,6 @@ QString ParseJasonResult::parseAndFormat(QString jasonText)
     QString result;
     // Reserva espaço para aumentar a performance da concatenacao
     result.reserve(4096);
-
-    // Verifica erros
-
 
     // Exibe o resultado em json
     result.append("Resultado:").append("\n");

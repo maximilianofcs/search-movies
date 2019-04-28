@@ -17,8 +17,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     RequestResponse.cpp \
-    ParseJasonResult.cpp
+    ParseJasonResult.cpp \
+    omdbapi.cpp
 
 HEADERS += \
     RequestResponse.h \
-    ParseJasonResult.h
+    ParseJasonResult.h \
+    IOmdbApi.h \
+    OmdbApi.h

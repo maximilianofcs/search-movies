@@ -16,7 +16,7 @@ public:
     RequestResponse();
 
 public:
-    QString getUrl(std::string url);
+    QString getUrl(QString url);
 };
 
 #endif // REQUESTRESONSE_H
