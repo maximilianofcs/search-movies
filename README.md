@@ -1,5 +1,6 @@
 # search-movies
 Procura e exibe os dados do filme no omdbapi
+# 
 Exemplos de uso:
 #
 ./search-movies --help
